@@ -1,4 +1,4 @@
-package aocfunctions
+package aoc_functions
 
 import (
 	"os"
