@@ -5,6 +5,12 @@ import (
 	"strings"
 )
 
+func PanicOnErr(err error) {
+	if err != nil {
+		panic(err)
+	}
+}
+
 func MakeMatrix(filename string) ([][]rune, error) {
 	data, err := os.ReadFile(filename)
 	if err != nil {
@@ -17,4 +23,13 @@ func MakeMatrix(filename string) ([][]rune, error) {
 		rows[i] = []rune(row)
 	}
 	return rows, nil
+}
+
+func MakeRows(filename string) ([]string, error) {
+	data, err := os.ReadFile(filename)
+	if err != nil {
+		return nil, err
+	}
+
+	return strings.Split(string(data), "\n"), nil
 }
