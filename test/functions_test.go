@@ -24,3 +24,35 @@ func TestMakeMatrix(t *testing.T) {
 		}
 	})
 }
+
+func TestParseAllInts(t *testing.T) {
+	t.Run("returns []int on sucess", func(t *testing.T) {
+		str := `Button A: X+69, Y+23
+				Button B: X+27, Y+71
+				Prize: X=18641, Y=10279`
+		ints, err := aoc.ParseAllInts(str)
+		if err != nil {
+			t.Errorf("expected nil err, but got err")
+		}
+		if len(ints) != 6 {
+			t.Error("expected 6 ints, but got different amount: ", ints)
+		}
+		if ints[5] != 10279 {
+			t.Errorf("epected 10279 but got %d", ints[2])
+		}
+	})
+
+	t.Run("works with negative numbers", func(t *testing.T) {
+		str := `p=95,12 v=-78,-79`
+		ints, err := aoc.ParseAllInts(str)
+		if err != nil {
+			t.Errorf("expected nil err, but got err")
+		}
+		if len(ints) != 4 {
+			t.Error("expected 6 ints, but got different amount: ", ints)
+		}
+		if ints[2] != -78 {
+			t.Errorf("epected -78 but got %d", ints[2])
+		}
+	})
+}

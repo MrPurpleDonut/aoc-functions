@@ -1,7 +1,9 @@
 package aoc_functions
 
 import (
+	"fmt"
 	"os"
+	"regexp"
 	"strconv"
 	"strings"
 )
@@ -62,4 +64,29 @@ func MakeRows(filename string) ([]string, error) {
 	}
 
 	return strings.Split(string(data), "\n"), nil
+}
+
+func PrintRuneBoard(board [][]rune) {
+	for _, row := range board {
+		val := ""
+		for _, v := range row {
+			val += string(v)
+		}
+		fmt.Println(val)
+	}
+}
+
+func ParseAllInts(line string) ([]int, error) {
+	re := regexp.MustCompile(`-?\d+`)
+
+	vals := re.FindAllString(line, -1)
+	nums := make([]int, len(vals))
+	for i, v := range vals {
+		num, err := strconv.Atoi(v)
+		if err != nil {
+			return nil, err
+		}
+		nums[i] = num
+	}
+	return nums, nil
 }
